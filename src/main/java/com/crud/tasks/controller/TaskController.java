@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @RestController
 @RequestMapping("/v1/task")
 
@@ -24,23 +26,23 @@ public class TaskController {
 
     @RequestMapping(method = RequestMethod.GET, value = "getTask")
     @ResponseBody
-    public TaskDto getTask(@RequestParam(value = "i", required = false, defaultValue = "1") Long i) {
-        return taskMapper.mapToTaskDto(service.getOneTask(i));
+    public TaskDto getTask(@RequestParam Long taskId) throws TaskNotFoundException {
+        return taskMapper.mapToTaskDto(service.getOneTask(taskId).orElseThrow(TaskNotFoundException::new));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteTask")
-    public void deleteTask(String taskId){
-
+    public void deleteTask(@RequestParam Long taskId) throws TaskNotFoundException{
+        service.deleteTask(taskId);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateTask")
-    public TaskDto updateTask(TaskDto task){
-        return new TaskDto((long)1, "test title", "test_content");
+    public TaskDto updateTask(@RequestBody TaskDto taskDto){
+        return taskMapper.mapToTaskDto(service.saveTask(taskMapper.mapToTask(taskDto)));
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "createTask")
-    public void createTask(TaskDto task){
-
+    @RequestMapping(method = RequestMethod.POST, value = "createTask", consumes = APPLICATION_JSON_VALUE)
+    public void createTask(@RequestBody TaskDto taskDto){
+        service.saveTask(taskMapper.mapToTask(taskDto));
     }
 }
 
