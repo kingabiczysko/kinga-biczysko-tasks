@@ -32,11 +32,11 @@ public class EmailScheduler {
         if (size!=1) {
             simpleEmailService.send(new Mail(
                     adminConfig.getAdminMail(), SUBJECT,
-                    "Currently in database you got: " + size + " tasks."));
+                    "Currently in database you got: " + size + " tasks in Heroku."));
         } else {
             simpleEmailService.send(new Mail(
                     adminConfig.getAdminMail(), SUBJECT,
-                    "Currently in database you got: 1 task."));
+                    "Currently in database you got: 1 task in Heroku."));
         }
     }
 }
