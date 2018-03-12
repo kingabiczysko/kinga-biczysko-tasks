@@ -27,7 +27,7 @@ public class TrelloMapperTest {
 
         //Then
         Assert.assertEquals("test_board", trelloBoards.get(0).getName());
-        Assert.assertEquals(true, trelloBoards.get(0).getLists().get(0).isClosed());
+        Assert.assertTrue( trelloBoards.get(0).getLists().get(0).isClosed());
 
     }
 
@@ -57,7 +57,7 @@ public class TrelloMapperTest {
 
         //Then
         Assert.assertEquals("List1_name", trelloList1.get(0).getName());
-        Assert.assertEquals(false, trelloList1.get(0).isClosed());
+        Assert.assertFalse(trelloList1.get(0).isClosed());
 
     }
 
@@ -70,7 +70,7 @@ public class TrelloMapperTest {
         List<TrelloListDto> trelloListDtos = trelloMapper.mapToListDto(trelloLists);
 
         //Then
-        Assert.assertEquals(true, trelloListDtos.get(0).isClosed());
+        Assert.assertTrue(trelloListDtos.get(0).isClosed());
         Assert.assertEquals("List2_id", trelloListDtos.get(0).getId());
     }
 
