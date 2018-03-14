@@ -1,9 +1,6 @@
 package com.crud.tasks.trello.facade;
 
-import com.crud.tasks.domain.TrelloBoard;
-import com.crud.tasks.domain.TrelloBoardDto;
-import com.crud.tasks.domain.TrelloList;
-import com.crud.tasks.domain.TrelloListDto;
+import com.crud.tasks.domain.*;
 import com.crud.tasks.mapper.TrelloMapper;
 import com.crud.tasks.service.TrelloService;
 import com.crud.tasks.trello.validator.TrelloValdator;
@@ -104,4 +101,28 @@ public class TrelloFacadeTest {
             });
         });
     }
+
+    @Test
+    public void shouldcreateCard(){
+        //Given
+        TrelloCardDto trelloCardDto = new TrelloCardDto("trello_card", "trello_card_important", "top", "1");
+        TrelloCard mappedTrelloCard = new TrelloCard("trello_card", "trello_card_important", "top", "1");
+        CreatedTrelloCardDto createdTrelloCardDto1 = new CreatedTrelloCardDto("trello_1", "trello_card", "test_url");
+        when(trelloMapper.mapToCard(trelloCardDto)).thenReturn(mappedTrelloCard);
+
+        when(trelloService.createTrelloCard(trelloCardDto)).thenReturn(createdTrelloCardDto1);
+        when(trelloMapper.mapToCardDto(mappedTrelloCard)).thenReturn(trelloCardDto);
+        //When
+
+        CreatedTrelloCardDto createdTrelloCardDto2 = trelloFacade.createCard(trelloCardDto);
+
+        //Then
+
+        assertEquals("trello_card", createdTrelloCardDto2.getName());
+        assertEquals("test_url", createdTrelloCardDto2.getShortUrl());
+        assertEquals("trello_1", createdTrelloCardDto2.getId());
+
+
+    }
+
 }
