@@ -66,8 +66,8 @@ public class TrelloServiceTest {
         //Then
         Assert.assertEquals("trello_board", resultBoardDtoList.get(0).getName());
         resultBoardDtoList.forEach(trelloBoardDto -> {
-            Assert.assertEquals("1", resultBoardDtoList.get(0).getLists().get(0).getId());
-            Assert.assertFalse(resultBoardDtoList.get(0).getLists().get(1).isClosed());
+            Assert.assertEquals("1",trelloBoardDto.getLists().get(0).getId());
+            Assert.assertFalse(trelloBoardDto.getLists().get(1).isClosed());
         });
     }
 }
