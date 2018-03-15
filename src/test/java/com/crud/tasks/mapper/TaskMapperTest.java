@@ -28,7 +28,7 @@ public class TaskMapperTest {
     @Test
     public void mapToTaskDto() {
         //Given
-        Task task = new Task((long) 2,"task2", "Modul 21.2.");
+        Task task = new Task(2L,"task2", "Modul 21.2.");
 
         //When
 
@@ -36,6 +36,7 @@ public class TaskMapperTest {
 
         //Then
         Assert.assertEquals("task2", mappedTask.getTitle());
+        Assert.assertEquals(2L, mappedTask.getId(),0);
     }
 
     @Test
@@ -51,5 +52,6 @@ public class TaskMapperTest {
         //Then
         Assert.assertEquals("Modul 21.3.", taskDtoList.get(0).getContent());
         Assert.assertEquals("task4", taskDtoList.get(1).getTitle());
+        Assert.assertEquals(4, taskList.get(1).getId(),0);
     }
 }
