@@ -22,7 +22,7 @@ public class SimpleEmailService {
     public void send(final Mail mail){
         LOGGER.info("Starting mail preparation...");
        try {
-           javaMailSender.send(createMineMessage(mail));
+           javaMailSender.send(createMailMessage(mail));
            LOGGER.info("Email has been sent.");
 
        } catch (MailException e){
