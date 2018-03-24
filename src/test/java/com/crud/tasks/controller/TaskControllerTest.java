@@ -54,7 +54,7 @@ public class TaskControllerTest {
         when(taskMapper.mapToTaskDtoList(taskList)).thenReturn(taskListDto);
 
         //When & Then
-        mockMvc.perform(get("/v1/task/getTasks").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/v1/tasks").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].title", is("task1")))
@@ -72,7 +72,7 @@ public class TaskControllerTest {
         when(taskMapper.mapToTaskDtoList(taskList)).thenReturn(taskListDto);
 
         //When & Then
-        mockMvc.perform(get("/v1/task/getTasks").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/v1/tasks").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(0)));
 
@@ -90,7 +90,7 @@ public class TaskControllerTest {
         String jsonContent = gson.toJson(taskMapped);
 
         //When
-        mockMvc.perform(post("/v1/task/createTask")
+        mockMvc.perform(post("/v1/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
@@ -115,8 +115,8 @@ public class TaskControllerTest {
         String jsonContent = gson.toJson(taskDto);
 
         //When & Then
-        mockMvc.perform(get("/v1/task/getTask")
-                .param("taskId", "3")
+        mockMvc.perform(get("/v1/tasks/3")
+               // .param("taskId", "3")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
@@ -140,7 +140,7 @@ public class TaskControllerTest {
 
         //When & Then
 
-        mockMvc.perform(put("/v1/task/updateTask")
+        mockMvc.perform(put("/v1/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
@@ -153,8 +153,8 @@ public class TaskControllerTest {
 
 
         //When & Then
-        mockMvc.perform(delete("/v1/task/deleteTask")
-                .param("taskId", "4")
+        mockMvc.perform(delete("/v1/tasks/4")
+                //.param("taskId", "4")
         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
